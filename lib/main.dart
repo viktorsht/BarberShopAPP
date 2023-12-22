@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
-
 import 'src/app_module.dart';
 import 'src/app_widget.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
 

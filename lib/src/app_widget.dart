@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:holy_bible/app/constants/constants.dart';
 
 import 'constants/constants.dart';
 import 'themes/app_themes.dart';
+
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
 
@@ -13,7 +12,7 @@ class AppWidget extends StatelessWidget {
     Constants.themeApp = newThemeData;
   }
 
-  @override
+  /*@override
   Widget build(BuildContext context){
     return BlocBuilder<ThemeModeCubit, ThemeMode>(
       builder: (BuildContext context, ThemeMode themeMode) => MaterialApp.router(
@@ -25,5 +24,17 @@ class AppWidget extends StatelessWidget {
         themeMode: themeMode,
       ),
     ); //added by extension 
+  }*/
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'Barbearia Cliente',
+        routerConfig: Modular.routerConfig,
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: ThemeMode.system,
+    );
   }
 }
