@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/schedule_entity.dart';
 
 class ScheduleEntityMapper extends ScheduleEntity{
-
   const ScheduleEntityMapper({
     required super.id,
     required super.barberman,
@@ -14,7 +13,7 @@ class ScheduleEntityMapper extends ScheduleEntity{
   
   static fromMap(Map<String, dynamic> map) {
     return ScheduleEntityMapper(
-      id: map['id'],
+      id: map['id'] ?? 0,
       scheduleHours: map['scheduledDay'],
       service: map['service'],
       payMethods: map['paymentMethod'],

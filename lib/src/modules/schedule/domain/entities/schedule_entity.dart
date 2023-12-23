@@ -1,10 +1,10 @@
 class ScheduleEntity{
   final int id;
-  final String barberman;
-  final String customer;
+  final int barberman;
+  final int customer;
   final String scheduleHours;
-  final String service;
-  final String payMethods;
+  final int service;
+  final int payMethods;
 
   const ScheduleEntity({
     required this.id,

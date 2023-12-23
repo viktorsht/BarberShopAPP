@@ -12,8 +12,18 @@ class PostScheduleDataSourceImpl implements PostScheduleDataSource{
   
   @override
   Future<Map<String, dynamic>> call(ScheduleEntityMapper scheduleEntityMapper) async {
-    var response = await client.post(RoutesApi.schedule, HeadersApi.getHeaders(), scheduleEntityMapper.toMap());
-    return response;
+    try{
+      var response = await client.post(RoutesApi.schedule, HeadersApi.getHeaders(), scheduleEntityMapper.toJson());
+      if(response != null){
+        return response;
+      } 
+      else {
+        throw Exception('Null response from server');
+      }
+    }
+    on Exception catch (e){
+      throw Exception(e.toString());
+    }
   }
 
 }
