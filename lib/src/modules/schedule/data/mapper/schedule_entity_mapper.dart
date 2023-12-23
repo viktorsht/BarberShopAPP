@@ -23,6 +23,17 @@ class ScheduleEntityMapper extends ScheduleEntity{
     );
   }
 
+  static toEntity(ScheduleEntity entity) {
+    return ScheduleEntityMapper(
+      id: entity.id,
+      scheduleHours: entity.scheduleHours,
+      service: entity.service,
+      payMethods: entity.payMethods,
+      customer: entity.customer,
+      barberman: entity.barberman,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return{
       'id' : id,

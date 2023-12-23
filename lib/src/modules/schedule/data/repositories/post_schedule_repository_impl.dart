@@ -11,7 +11,7 @@ class PostScheduleRepositoryImpl implements PostScheduleRepository{
   @override
   Future<ScheduleEntity> call(ScheduleEntity scheduleEntity) async {
     try{
-      var res = await postScheduleDataSource(scheduleEntity);
+      var res = await postScheduleDataSource(ScheduleEntityMapper.toEntity(scheduleEntity));
       return ScheduleEntityMapper.fromMap(res);
     }
     catch(e){
