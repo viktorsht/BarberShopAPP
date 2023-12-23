@@ -2,5 +2,5 @@ class Customer{
   final String name;
   final String phone;
 
-  Customer(this.name, this.phone);
+  Customer({required this.name, required this.phone});
 }
