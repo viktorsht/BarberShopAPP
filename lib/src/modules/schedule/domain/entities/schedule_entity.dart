@@ -1,9 +1,9 @@
 class ScheduleEntity{
-  final String? barberman;
-  final String? customer;
-  final String? scheduleHours;
-  final String? service;
-  final String? payMethods;
+  final String barberman;
+  final String customer;
+  final String scheduleHours;
+  final String service;
+  final String payMethods;
 
   ScheduleEntity({
     required this.barberman, 
