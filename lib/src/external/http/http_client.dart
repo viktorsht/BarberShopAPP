@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 abstract class ClientHttp{
   Future<dynamic> get(String url, Map<String, String> headers);
-  Future<dynamic> post(String url, Map<String, String> headers, dynamic body);
+  Future<dynamic> post(String url, Map<String, String> headers, Map<String, dynamic> body);
 }
 
 class HttpService implements ClientHttp{
@@ -18,8 +20,8 @@ class HttpService implements ClientHttp{
   }
   
   @override
-  Future<dynamic> post(String url, Map<String, String> headers, dynamic body) async {
-    final response = await client.post(Uri.parse(url), headers: headers, body: body);
+  Future<dynamic> post(String url, Map<String, String> headers, Map<String, dynamic> body) async {
+    final response = await client.post(Uri.parse(url), headers: headers, body: jsonEncode(body));
     return response;
   }
 }

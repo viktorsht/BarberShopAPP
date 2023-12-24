@@ -1,6 +1,4 @@
-import 'package:client_barber_shop/src/modules/schedule/data/datasources/post_schedule_datasource.dart';
-import 'package:client_barber_shop/src/modules/schedule/data/repositories/post_schedule_repository_impl.dart';
-import 'package:client_barber_shop/src/modules/schedule/datasources/post_schedule_datasource_impl.dart';
+import 'package:client_barber_shop/src/modules/schedule/datasources/schedule_datasource_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:client_barber_shop/src/modules/schedule/data/mapper/schedule_entity_mapper.dart';
@@ -13,12 +11,12 @@ class MockHttpService extends Mock implements HttpService {}
 
 void main() {
   group('PostScheduleDataSourceImpl', () {
-    late PostScheduleDataSourceImpl dataSource;
+    late ScheduleDataSourceImpl dataSource;
     late MockHttpService mockHttpService;
 
     setUp(() {
       mockHttpService = MockHttpService();
-      dataSource = PostScheduleDataSourceImpl(mockHttpService);
+      dataSource = ScheduleDataSourceImpl(mockHttpService);
 
     });
 
@@ -30,7 +28,7 @@ void main() {
       //when(dataSource(scheduleEntityMapper)).thenAnswer((_) async => {'key': 'value'}); // Simulação de uma resposta bem-sucedida
 
       // Act
-      final result = await dataSource(scheduleEntityMapper);
+      final result = await dataSource.createSchedule(scheduleEntityMapper);
 
       // Assert
       expect(result, {'key': 'value'});

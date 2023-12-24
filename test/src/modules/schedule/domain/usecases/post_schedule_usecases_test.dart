@@ -1,19 +1,47 @@
+import 'package:client_barber_shop/src/modules/schedule/data/datasources/schedule_datasource.dart';
 import 'package:client_barber_shop/src/modules/schedule/data/mapper/schedule_entity_mapper.dart';
+import 'package:client_barber_shop/src/modules/schedule/data/repositories/schedule_repository_impl.dart';
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/schedule_entity.dart';
-import 'package:client_barber_shop/src/modules/schedule/domain/repositories/add_schedule_repository.dart';
-import 'package:client_barber_shop/src/modules/schedule/domain/usecases/post_schedule_usecases.dart';
+import 'package:client_barber_shop/src/modules/schedule/domain/repositories/schedule_repository.dart';
+import 'package:client_barber_shop/src/modules/schedule/domain/usecases/schedule_usecases.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-class PostScheduleRepositoryMock extends Mock implements PostScheduleRepository{}
+
+class PostScheduleRepositoryMock extends Mock implements ScheduleRepository {}
+class PostScheduleDataSourceMock extends Mock implements ScheduleDataSource {}
+
 void main() {
-  final repository = PostScheduleRepositoryMock();
-  final usecase = PostScheduleUseCaseImpl(repository);
-  const scheduleEntityMapper = ScheduleEntityMapper(service: 2,barberman: 1,scheduleHours: '22-12-2023 16:00:00', customer: 1, payMethods: 1, id: 0);
+  final datasource = PostScheduleDataSourceMock();
+  final repository = ScheduleRepositoryImpl(datasource);
+  final usecase = ScheduleUseCaseImpl(repository);
 
   test(
-    'testando use case post de agendamento', () async {
-      var response = await usecase(scheduleEntityMapper);
+    'PostScheduleUseCaseImpl should return success response',
+    () async {
+      // Crie uma instância da entidade ScheduleEntity para simular os dados
+      const scheduleEntity = ScheduleEntity(
+        id: null,
+        barberman: 1,
+        customer: 2,
+        scheduleHours: '2023-12-31 12:00:00',
+        service: 3,
+        payMethods: 4,
+      );
 
-      expect(response.body, isA<ScheduleEntity>());
-    });
-} 
+      final dto = ScheduleEntityMapper.toEntity(scheduleEntity);
+
+      // Simule o comportamento do repositório
+      when(datasource.createSchedule(dto)).thenAnswer((_) async => dto);
+
+      // Chame o caso de uso
+      var response = await usecase.createSchedule(scheduleEntity);
+
+      // Verifique se a resposta indica sucesso
+      expect(response.message, isNull);
+      expect(response.success, true);
+      // Verifique se a resposta contém o corpo correto
+      expect(response.body, isA<ScheduleEntityMapper>());
+      // Verifique se a mensagem de erro é nula
+    },
+  );
+}
