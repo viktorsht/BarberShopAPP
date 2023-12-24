@@ -4,6 +4,11 @@ import 'package:provider/provider.dart';
 import 'src/app_module.dart';
 import 'src/app_widget.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+import 'src/modules/auth/domain/repositories/auth_repository.dart';
+import 'src/modules/auth/presentation/create/bloc/create_costumer_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
 
@@ -13,7 +18,7 @@ void main() {
     (_) => runApp(
       MultiProvider(
         providers: [
-          //BlocProvider<BlocSchedule>(create: (context) => BlocSchedule(Modular.get<ScheduleUseCaseImpl>())),
+          BlocProvider<CreateCustomerBloc>(create: (context) => CreateCustomerBloc(Modular.get<AuthRepository>())),
         ],
         child: ModularApp(
           module: AppModule(), 
