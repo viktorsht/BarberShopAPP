@@ -12,20 +12,6 @@ class AppWidget extends StatelessWidget {
     Constants.themeApp = newThemeData;
   }
 
-  /*@override
-  Widget build(BuildContext context){
-    return BlocBuilder<ThemeModeCubit, ThemeMode>(
-      builder: (BuildContext context, ThemeMode themeMode) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Barbearia Cliente',
-        routerConfig: Modular.routerConfig,
-        theme: AppThemes.lightTheme,
-        darkTheme: AppThemes.darkTheme,
-        themeMode: themeMode,
-      ),
-    ); //added by extension 
-  }*/
-
   @override
   Widget build(BuildContext context){
     return MaterialApp.router(
@@ -34,7 +20,7 @@ class AppWidget extends StatelessWidget {
         routerConfig: Modular.routerConfig,
         theme: AppThemes.lightTheme,
         darkTheme: AppThemes.darkTheme,
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
     );
   }
 }
