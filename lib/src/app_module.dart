@@ -4,6 +4,7 @@ import 'package:client_barber_shop/src/modules/schedule/datasources/schedule_dat
 import 'package:client_barber_shop/src/modules/schedule/domain/usecases/schedule_usecases.dart';
 import 'package:client_barber_shop/src/modules/schedule/presentation/bloc/bloc_schedule.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart';
 
 import 'modules/schedule/presentation/page/teste.dart';
 
@@ -16,7 +17,7 @@ class AppModule extends Module {
     i.add(ScheduleRepositoryImpl.new);
     i.add(ScheduleDataSourceImpl.new);
     i.add<ClientHttp>(HttpService.new);
-    //i.addInstance(Client());
+    i.addInstance(Client());
   }
 
   @override

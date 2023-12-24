@@ -5,7 +5,6 @@ class ScheduleEntity {
   int? paymentMethod;
   int? client;
   int? barber;
-  String? createdAt;
 
   ScheduleEntity(
       {this.id,
@@ -14,7 +13,7 @@ class ScheduleEntity {
       this.paymentMethod,
       this.client,
       this.barber,
-      this.createdAt});
+  });
 
   ScheduleEntity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,7 +22,6 @@ class ScheduleEntity {
     paymentMethod = json['paymentMethod'];
     client = json['client'];
     barber = json['barber'];
-    createdAt = json['createdAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -34,7 +32,6 @@ class ScheduleEntity {
     data['paymentMethod'] = paymentMethod;
     data['client'] = client;
     data['barber'] = barber;
-    data['createdAt'] = createdAt;
     return data;
   }
 }

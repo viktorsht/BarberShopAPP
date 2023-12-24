@@ -14,7 +14,7 @@ class ScheduleDataSourceImpl implements ScheduleDataSource{
   Future<Map<String, dynamic>> createSchedule(ScheduleEntity scheduleEntity) async {
     try{
       var response = await client.post(RoutesApi.schedule, HeadersApi.getHeaders(), scheduleEntity.toJson());
-      return Map.from(response);
+      return response;
     }
     on Exception catch (e){
       throw Exception(e.toString());

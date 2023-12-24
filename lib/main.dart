@@ -1,4 +1,7 @@
+import 'package:client_barber_shop/src/modules/schedule/domain/usecases/schedule_usecases.dart';
+import 'package:client_barber_shop/src/modules/schedule/presentation/bloc/bloc_schedule.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
 import 'src/app_module.dart';
@@ -13,7 +16,7 @@ void main() {
     (_) => runApp(
       MultiProvider(
         providers: [
-          //BlocProvider<BlocBooks>(create: (context) => BlocBooks(Modular.get<BookRepository>())),
+          BlocProvider<BlocSchedule>(create: (context) => BlocSchedule(Modular.get<ScheduleUseCaseImpl>())),
         ],
         child: ModularApp(
           module: AppModule(), 
