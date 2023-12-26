@@ -12,7 +12,7 @@ class AuthRepositoryImpl implements AuthRepository{
   AuthRepositoryImpl(this.service);
 
   @override
-  Future<ResponsePresentation> createCustomer(CreateCustomerEntity entity) async {
+  Future<ResponsePresentation> createCustomer(CustomerEntity entity) async {
     try{
       await service.post(RoutesApi.clients, HeadersApi.getHeaders(), entity.toJson());
       return ResponsePresentation(success: true);

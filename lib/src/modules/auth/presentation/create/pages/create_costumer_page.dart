@@ -25,7 +25,7 @@ class CreateCostumerPage extends StatefulWidget {
 
 class _CreateCostumerPageState extends State<CreateCostumerPage> {
 
-  CreateCustomerEntity entity = CreateCustomerEntity.empty();
+  CustomerEntity entity = CustomerEntity.empty();
   final formKey = GlobalKey<FormState>();
   FormState get form => formKey.currentState!;
 

@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(
       const Duration(milliseconds: 2000),
       () {
-        Modular.to.navigate('${AppRoutes.authModule}${AppRoutes.createUser}'); // vai ser home
+        Modular.to.navigate(AppRoutes.homeModule);//${AppRoutes.createUser}'); // vai ser home
       },
     );
   }

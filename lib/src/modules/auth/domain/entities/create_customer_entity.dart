@@ -1,13 +1,13 @@
 import '../valueobject/name.dart';
 import '../valueobject/phone.dart';
 
-class CreateCustomerEntity {
+class CustomerEntity {
   Name? name;
   Phone? phone;
 
-  CreateCustomerEntity({this.name, this.phone});
+  CustomerEntity({this.name, this.phone});
 
-  CreateCustomerEntity.fromJson(Map<String, dynamic> json) {
+  CustomerEntity.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     phone = json['phone'];
   }
@@ -19,8 +19,8 @@ class CreateCustomerEntity {
     return data;
   }
 
-  factory CreateCustomerEntity.empty(){
-    return CreateCustomerEntity(
+  factory CustomerEntity.empty(){
+    return CustomerEntity(
       name: Name(''), 
       phone: Phone(''),
     );

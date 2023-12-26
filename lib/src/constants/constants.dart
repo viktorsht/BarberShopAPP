@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Constants{
+  static String nameApp = 'BarberShopApp';
   static double fontSizeMin = 20;
   static double fontSizeMax = 30;
   static ThemeMode themeApp = ThemeMode.light;

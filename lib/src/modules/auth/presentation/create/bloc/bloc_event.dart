@@ -4,7 +4,7 @@ part of 'create_costumer_bloc.dart';
 sealed class BlocEvent {}
 
 class CreateCustomerEvent extends BlocEvent{
-  final CreateCustomerEntity user;
+  final CustomerEntity user;
 
   CreateCustomerEvent(this.user);
 }
