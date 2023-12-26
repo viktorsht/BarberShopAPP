@@ -1,4 +1,5 @@
 import 'package:client_barber_shop/src/constants/app_colors.dart';
+import 'package:client_barber_shop/src/constants/app_images.dart';
 import 'package:client_barber_shop/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -26,7 +27,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Center(child: Text(AppRoutes.authModule)),
+      body: Center(child: Image.asset(AppImages.logo)),
     );
   }
 }

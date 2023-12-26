@@ -9,7 +9,7 @@ class Phone implements ValueObject {
   @override
   String? validator() {
     if (_value.isEmpty) {
-      return 'Este campo não pode ser vazio';
+      return 'Adicione um número de telefone';
     } else if (!_emailRegex.hasMatch(_value)) {
       return 'Formato de telefone inválido';
     }

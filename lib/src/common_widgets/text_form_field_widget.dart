@@ -31,6 +31,7 @@ class WidgetFormField extends StatelessWidget {
         onChanged: onChanged,
         validator: validator,
         style: const TextStyle(fontSize: 18),
+        cursorColor: AppColors.secundaryColor,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppColors.primaryColor,

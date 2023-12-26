@@ -7,9 +7,9 @@ sealed class BlocState {}
 final class CreateCostumerInitial extends BlocState {}
 
 class CreateCostumerErrorState extends BlocState {
-  final String message;
+  final ResponsePresentation error;
 
-  CreateCostumerErrorState({required this.message});
+  CreateCostumerErrorState({required this.error});
 }
 
 class CreateCostumerSucessState extends BlocState {

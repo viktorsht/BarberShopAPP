@@ -21,8 +21,9 @@ class CreateCustomerBloc extends Bloc<BlocEvent, BlocState> {
       final data = await authRepository.createCustomer(event.user);
       emit(CreateCostumerSucessState(data: data));
     }
-    catch(e){
-      emit(CreateCostumerErrorState(message: e.toString()));
+    on ResponsePresentation catch (e){
+      print(e.message);
+      emit(CreateCostumerErrorState(error: e));
     }
   } 
 } 
