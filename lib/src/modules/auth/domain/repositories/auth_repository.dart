@@ -1,7 +1,8 @@
 
 import '../../../../external/response/response_presentation.dart';
-import '../entities/create_customer_entity.dart';
+import '../entities/customer_entity.dart';
 
 abstract class AuthRepository{
-  Future<ResponsePresentation> createCustomer(CustomerEntity createCustomerEntity);
+  Future<ResponsePresentation> createCustomer(CustomerEntity entity);
+  Future<ResponsePresentation> updateCustomer(int userId, CustomerEntity entity);
 }

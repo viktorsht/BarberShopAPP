@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:client_barber_shop/src/external/response/response_presentation.dart';
-import 'package:client_barber_shop/src/modules/auth/domain/entities/create_customer_entity.dart';
+import 'package:client_barber_shop/src/modules/auth/domain/entities/customer_entity.dart';
 import 'package:client_barber_shop/src/modules/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 

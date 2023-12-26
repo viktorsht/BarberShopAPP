@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../common_widgets/button_widget.dart';
 import '../../../../../common_widgets/text_form_field_widget.dart';
-import '../../../domain/entities/create_customer_entity.dart';
+import '../../../domain/entities/customer_entity.dart';
 
 class CreateCostumerPage extends StatefulWidget {
   final CreateCustomerBloc controller;
