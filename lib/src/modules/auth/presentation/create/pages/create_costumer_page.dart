@@ -105,11 +105,9 @@ class _CreateCostumerPageState extends State<CreateCostumerPage> {
                           buttonColor: AppColors.buttonColor, 
                           messageColor: AppColors.primaryColorText,
                           onPressed: (){
-                            print('object');
-                            widget.controller.add(CreateCustomerEvent(entity));
                             final valid = form.validate();
                             if(!valid){
-                              //print('object');
+                              widget.controller.add(CreateCustomerEvent(entity));
                             }
                             else{
                               showSnackBar('Dados inválidos', Colors.red);
