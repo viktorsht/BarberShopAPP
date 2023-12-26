@@ -2,6 +2,8 @@ import 'package:client_barber_shop/src/common_widgets/app_bar_widget.dart';
 import 'package:client_barber_shop/src/modules/auth/presentation/create/bloc/create_costumer_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../common_widgets/text_form_field_widget.dart';
+
 class CreateCostumerPage extends StatefulWidget {
   final CreateCustomerBloc controller;
 
@@ -22,7 +24,12 @@ class _CreateCostumerPageState extends State<CreateCostumerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(title: 'Cadastro'),
-      body: Container(),
+      body: Column(
+        children: [
+          WidgetFormField(hint: '', value: '',),
+          WidgetFormField(hint: '', value: '',),
+        ],
+      ),
     );
   }
 }
