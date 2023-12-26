@@ -1,4 +1,5 @@
 import 'package:client_barber_shop/src/constants/app_colors.dart';
+import 'package:client_barber_shop/src/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -16,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(
       const Duration(milliseconds: 2000),
       () {
-        Modular.to.navigate('/create'); // vai ser home
+        Modular.to.navigate('${AppRoutes.authModule}${AppRoutes.createUser}'); // vai ser home
       },
     );
   }
@@ -25,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: const Text("Data"),
+      body: Center(child: Text(AppRoutes.authModule)),
     );
   }
 }

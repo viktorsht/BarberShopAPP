@@ -1,6 +1,7 @@
 import 'package:client_barber_shop/src/external/http/http_client_impl.dart';
-import 'package:client_barber_shop/src/modules/splash/splash_page.dart';
+import 'package:client_barber_shop/src/routes/app_routes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:http/http.dart';
 import '../../external/http/http_client.dart';
 import 'domain/repositories/auth_repository.dart';
 import 'presentation/create/bloc/create_costumer_bloc.dart';
@@ -13,13 +14,14 @@ class AuthModule extends Module {
   void exportedBinds(Injector i) {
     i.add<AuthRepository>(AuthRepositoryImpl.new);
     i.addSingleton<ClientHttp>(ClientHttpImpl.new);
+    //i.add<ClientHttp>(ClientHttpImpl.new);
+    i.addInstance(Client());
     i.addSingleton(CreateCustomerBloc.new);
   }
 
   @override
   void routes(r) {
-    r.child('/create', child: (context) => const CreateCostumerPage());
-    r.child('/', child: (context) => const SplashPage());
+    r.child(AppRoutes.createUser, child: (context) => CreateCostumerPage(controller: Modular.get()));
     //r.module(RoutesApp.showChapters, module: ChaptersModule());
   }
 }
