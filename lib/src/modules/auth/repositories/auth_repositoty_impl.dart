@@ -26,7 +26,7 @@ class AuthRepositoryImpl implements AuthRepository{
   Future<ResponsePresentation> updateCustomer(int userId, CustomerEntity entity) async{
     try{
       var url = RoutesApi.clients + userId.toString();
-      //await service.update(RoutesApi.clients, HeadersApi.getHeaders(), entity.toJson());
+      await service.update(url, HeadersApi.getHeaders(), entity.toJson());
       return ResponsePresentation(success: true);
     }
     catch(e){
