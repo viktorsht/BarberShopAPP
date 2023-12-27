@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common_widgets/button_widget.dart';
+import 'package:table_calendar/table_calendar.dart';
+
 
 class SchedulePage extends StatefulWidget {
   final ScheduleBloc controller;
@@ -25,6 +27,10 @@ class _SchedulePageState extends State<SchedulePage> {
   String? selectedPay;
   String? selectedHour;
 
+      CalendarFormat _calendarFormat = CalendarFormat.month;
+    DateTime _focusedDay = DateTime.now();
+    DateTime? _selectedDay;
+
   @override
   void initState() {
     super.initState();
@@ -35,8 +41,7 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(title: 'Agendar'),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
         child: BlocBuilder<ScheduleBloc, BlocState>(
           bloc: widget.controller,
           builder: (context, state) {
@@ -65,8 +70,8 @@ class _SchedulePageState extends State<SchedulePage> {
                     },
                     items: itemsBarbers.map((BarberEntity e) {
                       return DropdownMenuItem<String>(
-                        value: e.name,
-                        child: Text(e.name!),
+                        value: e.name ?? '',
+                        child: Text(e.name ?? ''),
                       );
                     }).toList(),
                   ),
@@ -81,8 +86,8 @@ class _SchedulePageState extends State<SchedulePage> {
                     },
                     items: itemsServices.map((ServicesEntity e) {
                       return DropdownMenuItem<String>(
-                        value: e.name,
-                        child: Text(e.name!),
+                        value: e.name ?? '',
+                        child: Text(e.name ?? ''),
                       );
                     }).toList(),
                   ),
@@ -97,8 +102,8 @@ class _SchedulePageState extends State<SchedulePage> {
                     },
                     items: itemsPay.map((PaymentMethodsEntity e) {
                       return DropdownMenuItem<String>(
-                        value: e.name,
-                        child: Text(e.name!),
+                        value: e.name ?? '',
+                        child: Text(e.name ?? ''),
                       );
                     }).toList(),
                   ),
@@ -113,12 +118,45 @@ class _SchedulePageState extends State<SchedulePage> {
                     },
                     items: itemsHour.map((HoursActiveEntity e) {
                       return DropdownMenuItem<String>(
-                        value: e.time,
-                        child: Text(e.time!),
+                        value: e.time ?? '',
+                        child: Text(e.time ?? ''),
                       );
                     }).toList(),
                   ),
-                  // calendar
+                  TableCalendar(
+                    calendarFormat: _calendarFormat,
+                    focusedDay: _focusedDay,
+                    firstDay: DateTime.utc(2023, 1, 1),
+                    lastDay: DateTime.utc(2024, 12, 31),
+                    selectedDayPredicate: (day) {
+                      // Use isso para destacar o dia selecionado
+                      return isSameDay(_selectedDay, day);
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      // Callback quando um dia é selecionado
+                      print('Dia selecionado: $selectedDay');
+                      setState(() {
+                        _selectedDay = selectedDay;
+                      });
+                    },
+                    calendarBuilders: CalendarBuilders(
+                      // Personalize a aparência do dia
+                      selectedBuilder: (context, date, _) {
+                        return Container(
+                          margin: const EdgeInsets.all(4.0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Text(
+                            '${date.day}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Align(
