@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:client_barber_shop/src/external/api/headers.dart';
 import 'package:client_barber_shop/src/external/api/routes.dart';
+import 'package:client_barber_shop/src/modules/schedule/domain/entities/hours_active_entity.dart';
 
 import '../../../external/http/http_client.dart';
 import '../../../external/response/response_presentation.dart';
@@ -51,6 +52,18 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
       final jsonList = jsonDecode(response.body) as List;
       return jsonList.map((e) => ServicesEntity.fromJson(e)).toList();
     } catch (e) {
+      throw ResponsePresentation(success: false);
+    }
+  }
+
+  @override
+  Future<List<HoursActiveEntity>> fetchHoursActive() async {
+    try{
+      final response = await service.get(RoutesApi.hoursActive, HeadersApi.getHeaders());
+      final jsonList = jsonDecode(response.body) as List;
+      return jsonList.map((e) => HoursActiveEntity.fromJson(e)).toList();
+    }
+    catch(e){
       throw ResponsePresentation(success: false);
     }
   }
