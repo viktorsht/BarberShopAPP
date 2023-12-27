@@ -33,6 +33,7 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
       emit(ScheduleSucessState(barber: barber, services: services, pay: pay));
     } 
     on ResponsePresentation catch (e) {
+      print('object');
       emit(ScheduleErrorState(error: e));
     }
   }

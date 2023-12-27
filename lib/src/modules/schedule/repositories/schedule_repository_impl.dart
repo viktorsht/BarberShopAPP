@@ -25,6 +25,7 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   Future<List<BarberEntity>> fetchBarbers() async {
     try{
       var response = await service.get(RoutesApi.barbers, HeadersApi.getHeaders());
+      print(response);
       var jsonList = jsonDecode(response.body) as List;
       return jsonList.map((e) => BarberEntity.fromJson(e)).toList();
     }
