@@ -4,4 +4,5 @@ class AppRoutes{
   static String updateUser = '/updateUser';
   static String authModule = '/auth';
   static String homeModule = '/home';
+  static String scheduleModule = '/schedule';
 }
