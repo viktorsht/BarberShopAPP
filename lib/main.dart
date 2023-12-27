@@ -10,6 +10,8 @@ import 'src/modules/auth/presentation/create/bloc/create_costumer_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'src/modules/auth/presentation/update/bloc/update_costumer_bloc.dart';
+import 'src/modules/schedule/domain/repositories/schedule_repository.dart';
+import 'src/modules/schedule/presentation/bloc/schedule_bloc.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,8 @@ void main() {
       MultiProvider(
         providers: [
           BlocProvider<CreateCustomerBloc>(create: (context) => CreateCustomerBloc(Modular.get<AuthRepository>())),
-          BlocProvider<UpdateCostumerBloc>(create: (context) => UpdateCostumerBloc(Modular.get<AuthRepository>()))
+          BlocProvider<UpdateCostumerBloc>(create: (context) => UpdateCostumerBloc(Modular.get<AuthRepository>())),
+          BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc(Modular.get<ScheduleRepositoty>(), Modular.get<AuthRepository>())),
         ],
         child: ModularApp(
           module: AppModule(), 
