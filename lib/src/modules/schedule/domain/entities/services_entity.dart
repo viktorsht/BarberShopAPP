@@ -2,7 +2,7 @@ class ServicesEntity {
   int? id;
   String? name;
   int? durationMinutes;
-  int? price;
+  double? price;
 
   ServicesEntity({
     this.id, 

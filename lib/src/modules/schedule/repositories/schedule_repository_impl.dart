@@ -25,7 +25,6 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   Future<List<BarberEntity>> fetchBarbers() async {
     try{
       var response = await service.get(RoutesApi.barbers, HeadersApi.getHeaders());
-      print(response);
       var jsonList = jsonDecode(response.body) as List;
       return jsonList.map((e) => BarberEntity.fromJson(e)).toList();
     }
@@ -38,7 +37,7 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   Future<List<PaymentMethodsEntity>> fetchPaymentMethods() async {
     try {
       var response = await service.get(RoutesApi.paymentMethods, HeadersApi.getHeaders());
-      var jsonList = jsonDecode(response.body);
+      var jsonList = jsonDecode(response.body) as List;
       return jsonList.map((e) => PaymentMethodsEntity.fromJson(e)).toList();
     } catch (e) {
       throw ResponsePresentation(success: false);
@@ -48,8 +47,8 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   @override
   Future<List<ServicesEntity>> fetchServices() async {
     try {
-      var response = await service.get(RoutesApi.services, HeadersApi.getHeaders());
-      var jsonList = jsonDecode(response.body);
+      final response = await service.get(RoutesApi.services, HeadersApi.getHeaders());
+      final jsonList = jsonDecode(response.body) as List;
       return jsonList.map((e) => ServicesEntity.fromJson(e)).toList();
     } catch (e) {
       throw ResponsePresentation(success: false);
