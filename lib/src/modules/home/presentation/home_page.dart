@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   MenuItemWidget(
                     message: 'Agendar', 
-                    onPressed: () => Modular.to.navigate("${AppRoutes.scheduleModule}${AppRoutes.root}"),
+                    onPressed: () => Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.root}"),
                   ),
                   MenuItemWidget(message: 'Minha Agenda', onPressed: () {}),
                   MenuItemWidget(message: 'Meu Perfil', onPressed: () {}),
