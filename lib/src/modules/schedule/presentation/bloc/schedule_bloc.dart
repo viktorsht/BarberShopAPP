@@ -1,3 +1,4 @@
+import 'package:client_barber_shop/src/modules/schedule/domain/entities/hours_active_entity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,8 +30,9 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
       List<BarberEntity> barber = await scheduleRepositoty.fetchBarbers(); 
       List<ServicesEntity> services = await scheduleRepositoty.fetchServices();
       List<PaymentMethodsEntity> pay = await scheduleRepositoty.fetchPaymentMethods();
+      List<HoursActiveEntity> hours = await scheduleRepositoty.fetchHoursActive();
       //ResponsePresentation customer = await authRepository.fetchCustomer(event.phone);
-      emit(ScheduleSucessState(barber: barber, services: services, pay: pay));
+      emit(ScheduleSucessState(hours: hours, barber: barber, services: services, pay: pay));
     } 
     on ResponsePresentation catch (e) {
       emit(ScheduleErrorState(error: e));

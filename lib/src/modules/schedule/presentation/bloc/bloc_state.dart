@@ -16,8 +16,9 @@ class ScheduleSucessState extends BlocState {
   final List<BarberEntity> barber;
   final List<ServicesEntity> services;
   final List<PaymentMethodsEntity> pay;
+  final List<HoursActiveEntity> hours;
 
-  ScheduleSucessState({required this.barber, required this.services, required this.pay});
+  ScheduleSucessState({required this.hours, required this.barber, required this.services, required this.pay});
 
 }
 
