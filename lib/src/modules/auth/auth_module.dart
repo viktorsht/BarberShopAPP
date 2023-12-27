@@ -1,4 +1,5 @@
 import 'package:client_barber_shop/src/external/http/http_client_impl.dart';
+import 'package:client_barber_shop/src/modules/auth/presentation/update/pages/update_costumer_page.dart';
 import 'package:client_barber_shop/src/routes/app_routes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:http/http.dart';
@@ -22,6 +23,7 @@ class AuthModule extends Module {
   @override
   void routes(r) {
     r.child(AppRoutes.createUser, child: (context) => CreateCostumerPage(controller: Modular.get()));
+    r.child(AppRoutes.updateUser, child: (context) => UpdateCostumerPage(controller: Modular.get()));
     //r.module(RoutesApp.showChapters, module: ChaptersModule());
   }
 }
