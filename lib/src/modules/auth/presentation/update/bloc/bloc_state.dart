@@ -12,9 +12,7 @@ class UpdateCostumerErrorState extends BlocState {
 }
 
 class UpdateCostumerSucessState extends BlocState {
-  final ResponsePresentation data;
-
-  UpdateCostumerSucessState({required this.data});
+  UpdateCostumerSucessState();
 }
 
 class UpdateCostumerLoadingState extends BlocState {

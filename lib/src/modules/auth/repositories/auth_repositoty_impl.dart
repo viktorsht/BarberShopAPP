@@ -33,5 +33,17 @@ class AuthRepositoryImpl implements AuthRepository{
       throw ResponsePresentation(success: false);
     }
   }
+  
+  @override
+  Future<ResponsePresentation> fetchCustomer(String phone) async {
+    try{
+      var url = RoutesApi.clients + phone;
+      var response = await service.get(url, HeadersApi.getHeaders());
+      return ResponsePresentation(success: true, body: response);
+    }
+    catch(e){
+      throw ResponsePresentation(success: false);
+    }
+  }
 
 }
