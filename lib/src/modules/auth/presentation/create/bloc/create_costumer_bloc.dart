@@ -22,7 +22,6 @@ class CreateCustomerBloc extends Bloc<BlocEvent, BlocState> {
       emit(CreateCostumerSucessState(data: data));
     }
     on ResponsePresentation catch (e){
-      print(e.message);
       emit(CreateCostumerErrorState(error: e));
     }
   } 
