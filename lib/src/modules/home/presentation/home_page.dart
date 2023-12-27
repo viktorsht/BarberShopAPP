@@ -1,8 +1,10 @@
 import 'package:client_barber_shop/src/common_widgets/app_bar_widget.dart';
 import 'package:client_barber_shop/src/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../constants/app_images.dart';
+import '../../../routes/app_routes.dart';
 import 'widgets/menu_item_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -55,7 +57,10 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 8.0, 
                 mainAxisSpacing: 8.0,
                 children: [
-                  MenuItemWidget(message: 'Agendar', onPressed: () {}),
+                  MenuItemWidget(
+                    message: 'Agendar', 
+                    onPressed: () => Modular.to.navigate(AppRoutes.scheduleModule),
+                  ),
                   MenuItemWidget(message: 'Minha Agenda', onPressed: () {}),
                   MenuItemWidget(message: 'Meu Perfil', onPressed: () {}),
                   MenuItemWidget(message: 'Sobre Nós', onPressed: () {}),
