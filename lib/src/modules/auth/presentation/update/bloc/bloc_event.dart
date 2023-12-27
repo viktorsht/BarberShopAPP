@@ -4,8 +4,7 @@ part of 'update_costumer_bloc.dart';
 sealed class BlocEvent {}
 
 class UpdateCustomerEvent extends BlocEvent{
-  final Phone phone;
   final CustomerEntity user;
 
-  UpdateCustomerEvent(this.user, this.phone);
+  UpdateCustomerEvent(this.user);
 }

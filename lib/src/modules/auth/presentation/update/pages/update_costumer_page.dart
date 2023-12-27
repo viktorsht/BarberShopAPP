@@ -10,9 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../common_widgets/button_widget.dart';
 import '../../../../../common_widgets/text_form_field_widget.dart';
 import '../../../domain/entities/customer_entity.dart';
+import '../bloc/update_costumer_bloc.dart';
 
 class UpdateCostumerPage extends StatefulWidget {
-  final CreateCustomerBloc controller;
+  final UpdateCostumerBloc controller;
 
   const UpdateCostumerPage({
     super.key, 
@@ -43,6 +44,7 @@ class _UpdateCostumerPageState extends State<UpdateCostumerPage> {
   void initState() {
     super.initState();
     // requisição
+    widget.controller.add(UpdateCustomerEvent(entity));
   }
   
   @override
@@ -114,7 +116,7 @@ class _UpdateCostumerPageState extends State<UpdateCostumerPage> {
                           onPressed: (){
                             final valid = form.validate();
                             if(!valid){
-                              widget.controller.add(CreateCustomerEvent(entity));
+                              widget.controller.add(UpdateCustomerEvent(entity));
                             }
                             else{
                               showSnackBar('Dados inválidos', Colors.red);
