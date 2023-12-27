@@ -18,14 +18,13 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
 
   @override
   Future<ResponsePresentation> createSchedule() async {
-    // TODO: implement createSchedule
-    throw UnimplementedError();
+    throw UnimplementedError(); // ainda falta implementar
   }
 
   @override
   Future<List<BarberEntity>> fetchBarbers() async {
     try{
-      var response = await service.get(RoutesApi.barber, HeadersApi.getHeaders());
+      var response = await service.get(RoutesApi.barbers, HeadersApi.getHeaders());
       var jsonList = jsonDecode(response.body) as List;
       return jsonList.map((e) => BarberEntity.fromJson(e)).toList();
     }
@@ -37,7 +36,7 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   @override
   Future<List<PaymentMethodsEntity>> fetchPaymentMethods() async {
     try {
-      var response = await service.get(RoutesApi.payMethods, HeadersApi.getHeaders());
+      var response = await service.get(RoutesApi.paymentMethods, HeadersApi.getHeaders());
       var jsonList = jsonDecode(response.body);
       return jsonList.map((e) => PaymentMethodsEntity.fromJson(e)).toList();
     } catch (e) {

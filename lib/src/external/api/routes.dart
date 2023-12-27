@@ -5,5 +5,8 @@ class RoutesApi{
   
   static String schedule = '${Api.urlApi}schedule';
   static String clients = '${Api.urlApi}clients';
+  static String services = '${Api.urlApi}services';
+  static String barbers = '${Api.urlApi}barbers';
+  static String paymentMethods = '${Api.urlApi}paymentMethods';
 
 }
