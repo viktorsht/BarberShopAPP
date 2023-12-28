@@ -67,5 +67,17 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
       throw ResponsePresentation(success: false);
     }
   }
+  
+  @override
+  Future<List<HoursActiveEntity>> fetchHoursActiveByDay(int day) async {
+    try {
+      var url = '${RoutesApi.hoursActive}/$day';
+      final response = await service.get(url, HeadersApi.getHeaders());
+      final jsonList = jsonDecode(response.body) as List;
+      return jsonList.map((e) => HoursActiveEntity.fromJson(e)).toList();
+    } catch (e) {
+      throw ResponsePresentation(success: false);
+    }
+  }
 
 }
