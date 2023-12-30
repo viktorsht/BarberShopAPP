@@ -1,9 +1,9 @@
-String formatPhoneNumber(int phoneNumber) {
-  String phoneNumberString = phoneNumber.toString();
+String formatPhoneNumber(String phone) {
+  //String phoneNumberString = phoneNumber.toString();
 
-  if (phoneNumberString.length == 11) {
-    return '(${phoneNumberString.substring(0, 2)}) ${phoneNumberString.substring(2, 7)}-${phoneNumberString.substring(7)}';
+  if (phone.length == 11) {
+    return '(${phone.substring(0, 2)}) ${phone.substring(2, 7)}-${phone.substring(7)}';
   } else {
-    return 'Invalid phone number format';
+    return 'Formato de telefone inválido';
   }
 }
