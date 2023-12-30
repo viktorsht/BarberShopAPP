@@ -22,10 +22,10 @@ class ScheduleSucessState extends BlocState {
 
 }
 
-class HoursSucessState extends BlocState{
-  final List<HoursActiveEntity> hours;
+class ConfirmeSucessState extends BlocState{
+  final ScheduleEntity entity;
 
-  HoursSucessState({required this.hours});
+  ConfirmeSucessState({required this.entity});
 
 }
 

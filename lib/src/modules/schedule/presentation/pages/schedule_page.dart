@@ -6,6 +6,7 @@ import 'package:client_barber_shop/src/modules/schedule/domain/entities/payment_
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/services_entity.dart';
 import 'package:client_barber_shop/src/modules/schedule/presentation/bloc/schedule_bloc.dart';
 import 'package:client_barber_shop/src/routes/app_routes.dart';
+import 'package:client_barber_shop/src/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,7 +14,6 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import '../../../../common_widgets/button_widget.dart';
 import '../../../../utils/scheduled_time.dart';
 import '../../domain/entities/hours_active_entity.dart';
-import '../bloc/schedule_cubit.dart';
 
 class SchedulePage extends StatefulWidget {
   final ScheduleBloc controller;
@@ -26,7 +26,6 @@ class SchedulePage extends StatefulWidget {
 
 class _SchedulePageState extends State<SchedulePage> {
   
-  final cubit = ScheduleCubit();
 
   String? selectedBarber;
   int? selectedBarberId;
@@ -182,15 +181,21 @@ class _SchedulePageState extends State<SchedulePage> {
                           message: 'Prosseguir', 
                           buttonColor: AppColors.buttonColor, 
                           messageColor: AppColors.primaryColorText,
-                          onPressed: () {
-                            cubit.saveSchedule(
+                          onPressed: () async {
+                            /*cubit.saveSchedule(
                               selectDate: formatarData(selectDate), 
                               selectedServicesId: selectedServicesId!, 
                               selectedBarberId: selectedBarberId!, 
                               selectedPayId: selectedPayId!
+                            );*/
+                              await SchedulePreferencesHelper.saveScheduleInfo(
+                              scheduledTime: formatarData(selectDate),
+                              service: selectedServicesId ?? 0,
+                              payment: selectedPayId ?? 0,
+                              barber: selectedBarberId ?? 0,
                             );
-                            print("${AppRoutes.authModule}${AppRoutes.createUser}");
-                            Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
+                            //print("${AppRoutes.authModule}${AppRoutes.createUser}");
+                            Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
                           },
                         ),
                       ],

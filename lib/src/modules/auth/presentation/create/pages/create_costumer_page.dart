@@ -5,9 +5,12 @@ import 'package:client_barber_shop/src/modules/auth/domain/valueobject/phone.dar
 import 'package:client_barber_shop/src/modules/auth/presentation/create/bloc/create_costumer_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../common_widgets/button_widget.dart';
 import '../../../../../common_widgets/text_form_field_widget.dart';
+import '../../../../../routes/app_routes.dart';
+import '../../../../../utils/shared.dart';
 import '../../../domain/entities/customer_entity.dart';
 
 class CreateCostumerPage extends StatefulWidget {
@@ -95,12 +98,11 @@ class _CreateCostumerPageState extends State<CreateCostumerPage> {
                         message: 'Cadastrar', 
                         buttonColor: AppColors.buttonColor, 
                         messageColor: AppColors.primaryColorText,
-                        onPressed: (){
+                        onPressed: () async {
                           final valid = form.validate();
-                          print(entity.phone!.value);
-                          print(entity.name.toString());
                           if(valid){
                             widget.controller.add(CreateCustomerEvent(entity));
+                            await SharedPreferencesHelper.saveClientInfo(entity.name.toString(), entity.phone.toString());
                           }
                           else{
                             showSnackBar('Dados inválidos', Colors.red);
@@ -122,6 +124,7 @@ class _CreateCostumerPageState extends State<CreateCostumerPage> {
                   }
                   if(state is CreateCostumerSucessState){
                     showSnackBar('Cadastro realizado', Colors.green);
+                    Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
                   }
                 },
                 child: Container(),

@@ -13,8 +13,9 @@ class CreateScheduleEvent extends BlocEvent{
   CreateScheduleEvent(this.entity);
 }
 
-class HoursActiveEvent extends BlocEvent{
-  final int day;
+class ConfirmeScheduleEvent extends BlocEvent{
+  //final ScheduleEntity entity;
+  //final CustomerEntity customer;
 
-  HoursActiveEvent(this.day);
+  //ConfirmeScheduleEvent(this.entity, this.customer);
 }
