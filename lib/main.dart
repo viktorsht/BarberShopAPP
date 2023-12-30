@@ -34,10 +34,3 @@ void main() {
     )
   );
 }
-
-/*Future<void> loadPreferences() async {
-  final appPreferences = AppPreferences();
-  double fontSize = await appPreferences.getFontSize();
-  ThemeMode themeMode = await appPreferences.getThemeMode();
-  AppWidget.setAppPreferences(fontSize, themeMode);
-}*/

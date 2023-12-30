@@ -155,7 +155,6 @@ class _SchedulePageState extends State<SchedulePage> {
                     activeColor: AppColors.buttonColor,
                     onDateChange: (selectedDate){
                       setState(() {
-                        print(selectedDate);
                         selectDate = selectedDate;
                       });
                     },
@@ -182,20 +181,14 @@ class _SchedulePageState extends State<SchedulePage> {
                           buttonColor: AppColors.buttonColor, 
                           messageColor: AppColors.primaryColorText,
                           onPressed: () async {
-                            /*cubit.saveSchedule(
-                              selectDate: formatarData(selectDate), 
-                              selectedServicesId: selectedServicesId!, 
-                              selectedBarberId: selectedBarberId!, 
-                              selectedPayId: selectedPayId!
-                            );*/
                               await SchedulePreferencesHelper.saveScheduleInfo(
-                              scheduledTime: formatarData(selectDate),
+                              scheduledTime: formatarData(selectDate, selectedHour!),
                               service: selectedServicesId ?? 0,
                               payment: selectedPayId ?? 0,
                               barber: selectedBarberId ?? 0,
                             );
                             //print("${AppRoutes.authModule}${AppRoutes.createUser}");
-                            Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                            Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
                           },
                         ),
                       ],

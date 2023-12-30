@@ -13,9 +13,4 @@ class CreateScheduleEvent extends BlocEvent{
   CreateScheduleEvent(this.entity);
 }
 
-class ConfirmeScheduleEvent extends BlocEvent{
-  //final ScheduleEntity entity;
-  //final CustomerEntity customer;
-
-  //ConfirmeScheduleEvent(this.entity, this.customer);
-}
+class ConfirmeScheduleEvent extends BlocEvent{}

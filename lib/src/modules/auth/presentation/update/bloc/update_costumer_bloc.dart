@@ -19,7 +19,7 @@ class UpdateCostumerBloc extends Bloc<BlocEvent, BlocState>{
     emit(UpdateCostumerLoadingState());
     try{
       var response = await authRepository.fetchCustomer(event.user.phone.toString());
-      await authRepository.updateCustomer(response.body, event.user);
+      await authRepository.updateCustomer(response.id!, event.user);
       emit(UpdateCostumerSucessState());
     }
     on ResponsePresentation catch(e){

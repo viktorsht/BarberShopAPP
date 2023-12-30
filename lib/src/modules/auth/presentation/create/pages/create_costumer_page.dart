@@ -102,7 +102,10 @@ class _CreateCostumerPageState extends State<CreateCostumerPage> {
                           final valid = form.validate();
                           if(valid){
                             widget.controller.add(CreateCustomerEvent(entity));
-                            await SharedPreferencesHelper.saveClientInfo(entity.name.toString(), entity.phone.toString());
+                            await SharedPreferencesHelper.saveClientInfo(
+                              entity.name.toString(), 
+                              entity.phone.toString()
+                            );
                           }
                           else{
                             showSnackBar('Dados inválidos', Colors.red);
@@ -123,8 +126,18 @@ class _CreateCostumerPageState extends State<CreateCostumerPage> {
                     showSnackBar('Cadastro enviado', Colors.green);
                   }
                   if(state is CreateCostumerSucessState){
-                    showSnackBar('Cadastro realizado', Colors.green);
-                    Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                    //showSnackBar('Cadastro realizado', Colors.green);
+                    //Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                    const snackBar = SnackBar(
+                      content: Text('Cadastro realizado'),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.green,
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then((reason) {
+                      // Navegar para a próxima tela após o Snackbar ser fechado
+                      Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}");
+                    });
                   }
                 },
                 child: Container(),

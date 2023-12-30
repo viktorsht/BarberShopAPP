@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../external/response/response_presentation.dart';
+import '../../../auth/domain/entities/data_client.dart';
 import '../../../auth/domain/repositories/auth_repository.dart';
 import '../../domain/entities/barber_entity.dart';
 import '../../domain/entities/payment_methods_entity.dart';
@@ -22,7 +23,7 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
 
   ScheduleBloc(this.scheduleRepositoty, this.authRepository) : super(ScheduleInitial()){
     on<ScheduleEvent> (_get);
-    on<ConfirmeScheduleEvent> (_getHours);
+    on<ConfirmeScheduleEvent> (_getSchedule);
     on<CreateScheduleEvent> (_post);
   }
 
@@ -40,16 +41,21 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
     }
   }
 
-  void _getHours(ConfirmeScheduleEvent event, Emitter<BlocState> emit) async {
+  void _getSchedule(ConfirmeScheduleEvent event, Emitter<BlocState> emit) async {
     emit(ScheduleLoadingState());
     try {
       ScheduleEntity entity = await scheduleRepositoty.fetchPrefesSchedule();
       CustomerEntity customerEntity = await scheduleRepositoty.fetchPrefesCustomer();
-      ResponsePresentation customer = await authRepository.fetchCustomer(customerEntity.phone.toString());
-      if(customer.success == true){
-        emit(ConfirmeSucessState(entity: ScheduleEntity(service: entity.service, barber: entity.barber, payment: entity.payment, client: customer.body.id)));
-      }
-      emit(ScheduleErrorState(error: ResponsePresentation(success: false, message: 'Cliente não existe')));
+      DataClient customer = await authRepository.fetchCustomer(customerEntity.phone.toString());
+        emit(ConfirmeSucessState(
+          entity: ScheduleEntity(
+            scheduledTime: entity.scheduledTime,
+            service: entity.service, 
+            barber: entity.barber, 
+            payment: entity.payment, 
+            client: customer.id
+          )
+        ));
     } 
     on ResponsePresentation catch (e) {
       emit(ScheduleErrorState(error: e));
