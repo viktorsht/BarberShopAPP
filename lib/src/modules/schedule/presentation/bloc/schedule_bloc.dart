@@ -62,6 +62,14 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
     }
   }
 
-  void _post(CreateScheduleEvent event, Emitter<BlocState> emit) async {}
+  void _post(CreateScheduleEvent event, Emitter<BlocState> emit) async {
+    emit(ScheduleLoadingState());
+    try {
+      await scheduleRepositoty.createSchedule(event.entity);
+      emit(CreateScheduleState());
+    } on ResponsePresentation catch (e) {
+      emit(ScheduleErrorState(error: e));
+    }
+  }
 
 }

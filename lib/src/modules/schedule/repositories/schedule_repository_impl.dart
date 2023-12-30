@@ -23,8 +23,13 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   ScheduleRepositotyImpl(this.service);
 
   @override
-  Future<ResponsePresentation> createSchedule() async {
-    throw UnimplementedError(); // ainda falta implementar
+  Future<ResponsePresentation> createSchedule(ScheduleEntity entity) async {
+    try {
+      await service.post(RoutesApi.schedule, HeadersApi.getHeaders(), entity.toJson());
+      return ResponsePresentation(success: true);
+    } catch (e) {
+      throw ResponsePresentation(success: false);
+    }
   }
 
   @override

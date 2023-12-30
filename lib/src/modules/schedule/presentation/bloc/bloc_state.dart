@@ -30,6 +30,5 @@ class ConfirmeSucessState extends BlocState{
 }
 
 class ScheduleLoadingState extends BlocState {
-  ScheduleLoadingState();
 }
 
