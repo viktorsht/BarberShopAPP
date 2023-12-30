@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'src/modules/auth/presentation/update/bloc/update_costumer_bloc.dart';
 import 'src/modules/schedule/domain/repositories/schedule_repository.dart';
 import 'src/modules/schedule/presentation/bloc/schedule_bloc.dart';
+import 'src/modules/schedule/presentation/bloc/schedule_cubit.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ void main() {
           BlocProvider<CreateCustomerBloc>(create: (context) => CreateCustomerBloc(Modular.get<AuthRepository>())),
           BlocProvider<UpdateCostumerBloc>(create: (context) => UpdateCostumerBloc(Modular.get<AuthRepository>())),
           BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc(Modular.get<ScheduleRepositoty>(), Modular.get<AuthRepository>())),
+          BlocProvider<ScheduleCubit>(create: (context) => ScheduleCubit()),
         ],
         child: ModularApp(
           module: AppModule(), 

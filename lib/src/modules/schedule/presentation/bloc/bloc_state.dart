@@ -22,6 +22,14 @@ class ScheduleSucessState extends BlocState {
 
 }
 
+class HoursSucessState extends BlocState{
+  final List<HoursActiveEntity> hours;
+
+  HoursSucessState({required this.hours});
+
+}
+
 class ScheduleLoadingState extends BlocState {
   ScheduleLoadingState();
 }
+

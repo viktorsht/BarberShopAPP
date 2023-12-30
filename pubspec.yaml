@@ -40,9 +40,10 @@ dependencies:
   bloc: ^8.1.2
   provider: ^6.1.1
   shared_preferences: ^2.2.2
-  intl: ^0.17.0
+  intl: ^0.18.0
   http: ^1.1.0
-  table_calendar: ^3.0.8
+  easy_date_timeline: ^1.0.2
+  #table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:

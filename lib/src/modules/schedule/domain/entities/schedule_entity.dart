@@ -5,8 +5,7 @@ class ScheduleEntity {
   int? client;
   int? barber;
 
-  ScheduleEntity(
-      {this.scheduledTime,
+  ScheduleEntity({this.scheduledTime,
       this.service,
       this.payment,
       this.client,

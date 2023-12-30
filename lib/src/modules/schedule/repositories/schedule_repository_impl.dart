@@ -59,9 +59,10 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
   @override
   Future<List<HoursActiveEntity>> fetchHoursActive() async {
     try{
-      final response = await service.get(RoutesApi.hoursActive, HeadersApi.getHeaders());
+      final response = await service.get(RoutesApi.hours, HeadersApi.getHeaders());
       final jsonList = jsonDecode(response.body) as List;
-      return jsonList.map((e) => HoursActiveEntity.fromJson(e)).toList();
+      final filteredList = jsonList.where((element) => element['status'] == true).toList(); // pega só os true
+      return filteredList.map((e) => HoursActiveEntity.fromJson(e)).toList();
     }
     catch(e){
       throw ResponsePresentation(success: false);

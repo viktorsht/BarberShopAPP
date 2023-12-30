@@ -9,5 +9,6 @@ class RoutesApi{
   static String barbers = '${Api.urlApi}barbers';
   static String paymentMethods = '${Api.urlApi}paymentMethods';
   static String hoursActive = '${Api.urlApi}hoursActive';
+  static String hours = '${Api.urlApi}hours';
 
 }

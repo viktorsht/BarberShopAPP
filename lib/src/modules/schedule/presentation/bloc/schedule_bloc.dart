@@ -21,6 +21,7 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
 
   ScheduleBloc(this.scheduleRepositoty, this.authRepository) : super(ScheduleInitial()){
     on<ScheduleEvent> (_get);
+    on<HoursActiveEvent> (_getHours);
     on<CreateScheduleEvent> (_post);
   }
 
@@ -32,7 +33,18 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
       List<PaymentMethodsEntity> pay = await scheduleRepositoty.fetchPaymentMethods();
       List<HoursActiveEntity> hours = await scheduleRepositoty.fetchHoursActive();
       //ResponsePresentation customer = await authRepository.fetchCustomer(event.phone);
-      emit(ScheduleSucessState(hours: hours, barber: barber, services: services, pay: pay));
+      emit(ScheduleSucessState(hours:hours, barber: barber, services: services, pay: pay));
+    } 
+    on ResponsePresentation catch (e) {
+      emit(ScheduleErrorState(error: e));
+    }
+  }
+
+  void _getHours(HoursActiveEvent event, Emitter<BlocState> emit) async {
+    emit(ScheduleLoadingState());
+    try {
+      List<HoursActiveEntity> hours = await scheduleRepositoty.fetchHoursActiveByDay(event.day);
+      emit(HoursSucessState(hours: hours));
     } 
     on ResponsePresentation catch (e) {
       emit(ScheduleErrorState(error: e));

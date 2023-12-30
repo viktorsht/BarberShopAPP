@@ -12,3 +12,9 @@ class CreateScheduleEvent extends BlocEvent{
 
   CreateScheduleEvent(this.entity);
 }
+
+class HoursActiveEvent extends BlocEvent{
+  final int day;
+
+  HoursActiveEvent(this.day);
+}

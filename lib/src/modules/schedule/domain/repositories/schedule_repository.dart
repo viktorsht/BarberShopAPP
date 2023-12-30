@@ -11,5 +11,5 @@ abstract class ScheduleRepositoty{
   Future<List<PaymentMethodsEntity>> fetchPaymentMethods();
   Future<List<BarberEntity>> fetchBarbers();
   Future<List<HoursActiveEntity>> fetchHoursActive();
-  Future<List<HoursActiveEntity>> fetchHoursActiveByDay();
+  Future<List<HoursActiveEntity>> fetchHoursActiveByDay(int day);
 }
