@@ -29,6 +29,6 @@ class ConfirmeSucessState extends BlocState{
 
 }
 
-class ScheduleLoadingState extends BlocState {
-}
+class ScheduleLoadingState extends BlocState {}
+class CreateScheduleState extends BlocState {}
 
