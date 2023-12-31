@@ -12,7 +12,6 @@ import '../../../external/http/http_client.dart';
 import '../../../external/response/response_presentation.dart';
 import '../../../utils/shared.dart';
 import '../domain/entities/barber_entity.dart';
-import '../domain/entities/payment_methods_entity.dart';
 import '../domain/entities/services_entity.dart';
 import '../domain/repositories/schedule_repository.dart';
 
@@ -40,17 +39,6 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
       return jsonList.map((e) => BarberEntity.fromJson(e)).toList();
     }
     catch(e){
-      throw ResponsePresentation(success: false);
-    }
-  }
-
-  @override
-  Future<List<PaymentMethodsEntity>> fetchPaymentMethods() async {
-    try {
-      var response = await service.get(RoutesApi.paymentMethods, HeadersApi.getHeaders());
-      var jsonList = jsonDecode(response.body) as List;
-      return jsonList.map((e) => PaymentMethodsEntity.fromJson(e)).toList();
-    } catch (e) {
       throw ResponsePresentation(success: false);
     }
   }
@@ -96,12 +84,10 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
     try {
       String scheduledTime = await SchedulePreferencesHelper.getScheduledTime() ?? '';
       int service = await SchedulePreferencesHelper.getService() ?? 0;
-      int pay = await SchedulePreferencesHelper.getPayment() ?? 0;
       int barber = await SchedulePreferencesHelper.getBarber() ?? 0;
       return ScheduleEntity(
         scheduledTime: scheduledTime,
         service: service,
-        payment: pay,
         barber: barber,
       );
     } catch (e) {
@@ -114,10 +100,7 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
     try {
       String name = await SharedPreferencesHelper.getClientName() ?? '';
       String phone = await SharedPreferencesHelper.getClientPhone() ?? '';
-      return CustomerEntity(
-        name: Name(name),
-        phone: Phone(phone),
-      );
+      return CustomerEntity(name: Name(name),phone: Phone(phone));
 
     } catch (e) {
       throw ResponsePresentation(success: false);

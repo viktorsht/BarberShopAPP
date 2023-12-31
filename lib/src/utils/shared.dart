@@ -34,20 +34,17 @@ class SharedPreferencesHelper {
 class SchedulePreferencesHelper {
   static const String scheduledTimeKey = 'scheduledTime';
   static const String serviceKey = 'service';
-  static const String paymentKey = 'payment';
   static const String barberKey = 'barber';
 
   // Método para salvar os campos do agendamento
   static Future<void> saveScheduleInfo({
     required String scheduledTime,
     required int service,
-    required int payment,
     required int barber,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(scheduledTimeKey, scheduledTime);
     await prefs.setInt(serviceKey, service);
-    await prefs.setInt(paymentKey, payment);
     await prefs.setInt(barberKey, barber);
   }
 
@@ -61,12 +58,6 @@ class SchedulePreferencesHelper {
   static Future<int?> getService() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt(serviceKey);
-  }
-
-  // Método para recuperar o método de pagamento agendado
-  static Future<int?> getPayment() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(paymentKey);
   }
 
   // Método para recuperar o barbeiro agendado

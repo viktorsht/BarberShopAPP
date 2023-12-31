@@ -2,7 +2,6 @@ import 'package:client_barber_shop/src/common_widgets/app_bar_widget.dart';
 import 'package:client_barber_shop/src/constants/app_colors.dart';
 import 'package:client_barber_shop/src/constants/constants.dart';
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/barber_entity.dart';
-import 'package:client_barber_shop/src/modules/schedule/domain/entities/payment_methods_entity.dart';
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/services_entity.dart';
 import 'package:client_barber_shop/src/modules/schedule/presentation/bloc/schedule_bloc.dart';
 import 'package:client_barber_shop/src/routes/app_routes.dart';
@@ -46,6 +45,15 @@ class _SchedulePageState extends State<SchedulePage> {
     widget.controller.add(ScheduleEvent());
   }
 
+  void showSnackBar(String message, Color color){
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: const Duration(seconds: 3),
+      backgroundColor: color,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +72,6 @@ class _SchedulePageState extends State<SchedulePage> {
             final itemsBarbers = state.barber;
             final itemsServices = state.services;
             final itemsHours = state.hours;
-            final itemsPay = state.pay;
 
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -80,7 +87,6 @@ class _SchedulePageState extends State<SchedulePage> {
                         selectedBarber = select.name;
                         selectedBarberId = select.id;
                       });
-                      print(selectedBarberId);
                     },
                     items: itemsBarbers.map((BarberEntity e) {
                       return DropdownMenuItem<String>(
@@ -99,7 +105,6 @@ class _SchedulePageState extends State<SchedulePage> {
                         selectedServices = select.name;
                         selectedServicesId = select.id;
                       });
-                      print(selectedServicesId);
                     },
                     items: itemsServices.map((ServicesEntity e) {
                       return DropdownMenuItem<String>(
@@ -122,24 +127,6 @@ class _SchedulePageState extends State<SchedulePage> {
                       return DropdownMenuItem<String>(
                         value: e.time ?? '',
                         child: Text('${e.time}'),
-                      );
-                    }).toList(),
-                  ),
-                  const Text('Pagamento', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  DropdownButtonFormField<String>(
-                    value: selectedPay,
-                    hint: const Text("Selecione um pagamento"),
-                    onChanged: (value) {
-                      setState(() {
-                        final select = itemsPay.firstWhere((element) => element.name == value);
-                        selectedPay = select.name;
-                        selectedPayId = select.id;
-                      });
-                    },
-                    items: itemsPay.map((PaymentMethodsEntity e) {
-                      return DropdownMenuItem<String>(
-                        value: e.name ?? '',
-                        child: Text('${e.name}'),
                       );
                     }).toList(),
                   ),
@@ -177,20 +164,21 @@ class _SchedulePageState extends State<SchedulePage> {
                           buttonColor: AppColors.buttonColor, 
                           messageColor: AppColors.primaryColorText,
                           onPressed: () async {
-                            print(selectedBarberId);
-                            print(selectedPayId);
-                            print(selectedServicesId);
-                            await SchedulePreferencesHelper.saveScheduleInfo(
-                              scheduledTime: formatarData(selectDate, selectedHour!),
-                              service: selectedServicesId ?? 0,
-                              payment: selectedPayId ?? 0,
-                              barber: selectedBarberId ?? 0,
-                            );
-                            if(await SharedPreferencesHelper.hasCustomer() == true){
-                              Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                            if(selectedHour == '' || selectedServicesId == 0 || selectedBarberId == 0){
+                              showSnackBar('Selecione todos os campos', Colors.red);
                             }
                             else{
-                              Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
+                              await SchedulePreferencesHelper.saveScheduleInfo(
+                                scheduledTime: formatarData(selectDate, selectedHour?? ''),
+                                service: selectedServicesId ?? 0,
+                                barber: selectedBarberId ?? 0,
+                              );
+                              if(await SharedPreferencesHelper.hasCustomer() == true){
+                                Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                              }
+                              else{
+                                Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
+                              }
                             }
                             //print("${AppRoutes.authModule}${AppRoutes.createUser}");
                           },

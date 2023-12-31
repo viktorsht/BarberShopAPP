@@ -90,9 +90,6 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
                                 buttonColor: AppColors.primaryColor, 
                                 messageColor: AppColors.secundaryColor, 
                                 onPressed: (){
-                                  print(state.entity.barber);
-                                  print(state.entity.client);
-                                  print(state.entity.scheduledTime);
                                   widget.controller.add(CreateScheduleEvent(state.entity));
                                 },
                               ),

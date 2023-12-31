@@ -8,7 +8,6 @@ import '../../../../external/response/response_presentation.dart';
 import '../../../auth/domain/entities/data_client.dart';
 import '../../../auth/domain/repositories/auth_repository.dart';
 import '../../domain/entities/barber_entity.dart';
-import '../../domain/entities/payment_methods_entity.dart';
 import '../../domain/entities/schedule_entity.dart';
 import '../../domain/entities/services_entity.dart';
 import '../../domain/repositories/schedule_repository.dart';
@@ -32,9 +31,8 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
     try {
       List<BarberEntity> barber = await scheduleRepositoty.fetchBarbers(); 
       List<ServicesEntity> services = await scheduleRepositoty.fetchServices();
-      List<PaymentMethodsEntity> pay = await scheduleRepositoty.fetchPaymentMethods();
       List<HoursActiveEntity> hours = await scheduleRepositoty.fetchHoursActive();
-      emit(ScheduleSucessState(hours:hours, barber: barber, services: services, pay: pay));
+      emit(ScheduleSucessState(hours:hours, barber: barber, services: services));
     } 
     on ResponsePresentation catch (e) {
       emit(ScheduleErrorState(error: e));
@@ -52,7 +50,6 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
             scheduledTime: entity.scheduledTime,
             service: entity.service, 
             barber: entity.barber, 
-            payment: entity.payment, 
             client: customer.id
           )
         ));
