@@ -22,6 +22,12 @@ class SharedPreferencesHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(clientPhoneKey);
   }
+
+  static Future<bool> hasCustomer() async{
+    final name = await getClientName();
+    final phone = await getClientPhone();
+    return name != null && phone != null ? true : false;
+  }
 }
 
 

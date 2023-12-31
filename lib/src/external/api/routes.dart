@@ -3,7 +3,7 @@ class Api {
 }
 class RoutesApi{
   
-  static String schedule = '${Api.urlApi}schedule';
+  static String schedule = '${Api.urlApi}schedules';
   static String clients = '${Api.urlApi}clients';
   static String services = '${Api.urlApi}services';
   static String barbers = '${Api.urlApi}barbers';

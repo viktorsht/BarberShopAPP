@@ -33,7 +33,6 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
   void initState() {
     super.initState();
     widget.controller.add(ConfirmeScheduleEvent());
-    //widget.controller.add(CreateScheduleEvent());
   }
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
           BlocBuilder(
             bloc: widget.controller,
             builder: (context, state) {
-              if(state is ScheduleLoadingState){
+              if(state is ConfirmeScheduleLoadingState){
                 return const Text('data');
               }
               if(state is ScheduleErrorState){
@@ -91,6 +90,9 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
                                 buttonColor: AppColors.primaryColor, 
                                 messageColor: AppColors.secundaryColor, 
                                 onPressed: (){
+                                  print(state.entity.barber);
+                                  print(state.entity.client);
+                                  print(state.entity.scheduledTime);
                                   widget.controller.add(CreateScheduleEvent(state.entity));
                                 },
                               ),
@@ -108,10 +110,10 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
           BlocListener(
             bloc: widget.controller,
             listener: (context, state){
-              if(state is ScheduleErrorState){
-                showSnackBar('Houve um erro no seu cadastro', Colors.red);
+              if(state is CreateScheduleErrorState){
+                showSnackBar('Não foi possivel agendar', Colors.red);
               }
-              if(state is ScheduleLoadingState){
+              if(state is CreateScheduleLoadingState){
                 showSnackBar('Agendamento enviado, aguarde', Colors.green);
               }
               if(state is CreateScheduleState){

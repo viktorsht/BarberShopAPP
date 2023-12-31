@@ -37,13 +37,8 @@ class _SchedulePageState extends State<SchedulePage> {
   int? selectedPayId;
   
   String? selectedHour;
-  int? selectedHourId;
   
   DateTime selectDate = DateTime.now();
-
-  //List<BarberEntity> itemsBarbers = [];
-  //List<ServicesEntity> itemsServices = [];
-  //List<HoursActiveEntity> itemsHours = [];
 
   @override
   void initState() {
@@ -80,11 +75,12 @@ class _SchedulePageState extends State<SchedulePage> {
                     value: selectedBarber,
                     hint: const Text("Selecione um barbeiro"),
                     onChanged: (value) {
+                      final select = itemsBarbers.firstWhere((element) => element.name == value);
                       setState(() {
-                        final select = itemsBarbers.firstWhere((element) => element.name == value);
                         selectedBarber = select.name;
                         selectedBarberId = select.id;
                       });
+                      print(selectedBarberId);
                     },
                     items: itemsBarbers.map((BarberEntity e) {
                       return DropdownMenuItem<String>(
@@ -98,11 +94,12 @@ class _SchedulePageState extends State<SchedulePage> {
                     value: selectedServices,
                     hint: const Text("Selecione um serviço"),
                     onChanged: (value) {
+                      final select = itemsServices.firstWhere((element) => element.name == value);
                       setState(() {
-                        final select = itemsServices.firstWhere((element) => element.name == value);
                         selectedServices = select.name;
                         selectedServicesId = select.id;
                       });
+                      print(selectedServicesId);
                     },
                     items: itemsServices.map((ServicesEntity e) {
                       return DropdownMenuItem<String>(
@@ -117,9 +114,8 @@ class _SchedulePageState extends State<SchedulePage> {
                     hint: const Text("Selecione um horário"),
                     onChanged: (value) {
                       setState(() {
-                        final select = itemsHours.firstWhere((element) => element.time == value);
-                        selectedHour = select.time;
-                        selectedHourId = select.id;
+                        //final select = itemsHours.firstWhere((element) => element.time == value);
+                        selectedHour = value;
                       });
                     },
                     items: itemsHours.map((HoursActiveEntity e) {
@@ -181,14 +177,22 @@ class _SchedulePageState extends State<SchedulePage> {
                           buttonColor: AppColors.buttonColor, 
                           messageColor: AppColors.primaryColorText,
                           onPressed: () async {
-                              await SchedulePreferencesHelper.saveScheduleInfo(
+                            print(selectedBarberId);
+                            print(selectedPayId);
+                            print(selectedServicesId);
+                            await SchedulePreferencesHelper.saveScheduleInfo(
                               scheduledTime: formatarData(selectDate, selectedHour!),
                               service: selectedServicesId ?? 0,
                               payment: selectedPayId ?? 0,
                               barber: selectedBarberId ?? 0,
                             );
+                            if(await SharedPreferencesHelper.hasCustomer() == true){
+                              Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                            }
+                            else{
+                              Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
+                            }
                             //print("${AppRoutes.authModule}${AppRoutes.createUser}");
-                            Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
                           },
                         ),
                       ],

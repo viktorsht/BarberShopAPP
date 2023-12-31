@@ -28,7 +28,7 @@ class ScheduleRepositotyImpl implements ScheduleRepositoty{
       await service.post(RoutesApi.schedule, HeadersApi.getHeaders(), entity.toJson());
       return ResponsePresentation(success: true);
     } catch (e) {
-      throw ResponsePresentation(success: false);
+      rethrow;
     }
   }
 
