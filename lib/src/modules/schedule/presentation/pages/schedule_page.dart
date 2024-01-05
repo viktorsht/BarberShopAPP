@@ -1,6 +1,5 @@
 import 'package:client_barber_shop/src/common_widgets/app_bar_widget.dart';
 import 'package:client_barber_shop/src/constants/app_colors.dart';
-import 'package:client_barber_shop/src/constants/constants.dart';
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/barber_entity.dart';
 import 'package:client_barber_shop/src/modules/schedule/domain/entities/services_entity.dart';
 import 'package:client_barber_shop/src/modules/schedule/presentation/bloc/schedule_bloc.dart';
@@ -9,15 +8,13 @@ import 'package:client_barber_shop/src/utils/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
 import '../../../../common_widgets/button_widget.dart';
-import '../../../../utils/scheduled_time.dart';
-import '../../domain/entities/hours_active_entity.dart';
 
 class SchedulePage extends StatefulWidget {
   final ScheduleBloc controller;
+  final String scheduledTime;
 
-  const SchedulePage({Key? key, required this.controller}) : super(key: key);
+  const SchedulePage({Key? key, required this.controller, required this.scheduledTime}) : super(key: key);
 
   @override
   State<SchedulePage> createState() => _SchedulePageState();
@@ -35,9 +32,9 @@ class _SchedulePageState extends State<SchedulePage> {
   String? selectedPay;
   int? selectedPayId;
   
-  String? selectedHour;
+  //String? selectedHour;
   
-  DateTime selectDate = DateTime.now();
+  //DateTime selectDate = DateTime.now();
 
   @override
   void initState() {
@@ -62,7 +59,7 @@ class _SchedulePageState extends State<SchedulePage> {
         bloc: widget.controller,
         builder: (context, state) {
           if (state is ScheduleErrorState) {
-            return Center(child: Text(state.error.message.toString()));
+            return Center(child: Text(state.error.toString()));
           }
           if (state is ScheduleLoadingState) {
             return Center(child: CircularProgressIndicator(color: AppColors.secundaryColor));
@@ -71,7 +68,7 @@ class _SchedulePageState extends State<SchedulePage> {
             
             final itemsBarbers = state.barber;
             final itemsServices = state.services;
-            final itemsHours = state.hours;
+            //final itemsHours = state.hours;
 
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -113,39 +110,6 @@ class _SchedulePageState extends State<SchedulePage> {
                       );
                     }).toList(),
                   ),
-                  const Text('Horários', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  DropdownButtonFormField<String>(
-                    value: selectedHour,
-                    hint: const Text("Selecione um horário"),
-                    onChanged: (value) {
-                      setState(() {
-                        //final select = itemsHours.firstWhere((element) => element.time == value);
-                        selectedHour = value;
-                      });
-                    },
-                    items: itemsHours.map((HoursActiveEntity e) {
-                      return DropdownMenuItem<String>(
-                        value: e.time ?? '',
-                        child: Text('${e.time}'),
-                      );
-                    }).toList(),
-                  ),
-                   EasyInfiniteDateTimeLine(
-                    //initialDate: DateTime.now(),
-                    dayProps: const EasyDayProps(
-                      dayStructure: DayStructure.dayNumDayStr,
-                    ),
-                    activeColor: AppColors.buttonColor,
-                    onDateChange: (selectedDate){
-                      setState(() {
-                        selectDate = selectedDate;
-                      });
-                    },
-                    locale: "pt-br", 
-                    firstDate: Constants.firstDay, 
-                    focusDate: selectDate, 
-                    lastDate: Constants.lastDay,
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -164,17 +128,18 @@ class _SchedulePageState extends State<SchedulePage> {
                           buttonColor: AppColors.buttonColor, 
                           messageColor: AppColors.primaryColorText,
                           onPressed: () async {
-                            if(selectedHour == '' || selectedServicesId == 0 || selectedBarberId == 0){
+                            if(selectedServicesId == 0 || selectedBarberId == 0){
                               showSnackBar('Selecione todos os campos', Colors.red);
                             }
                             else{
+                              print(widget.scheduledTime);
                               await SchedulePreferencesHelper.saveScheduleInfo(
-                                scheduledTime: formatarData(selectDate, selectedHour?? ''),
+                                scheduledTime: widget.scheduledTime,//formatarData(selectDate, selectedHour?? ''),
                                 service: selectedServicesId ?? 0,
                                 barber: selectedBarberId ?? 0,
                               );
                               if(await SharedPreferencesHelper.hasCustomer() == true){
-                                Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
+                                Modular.to.navigate("${AppRoutes.scheduleModule}${AppRoutes.schedule}",);
                               }
                               else{
                                 Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);

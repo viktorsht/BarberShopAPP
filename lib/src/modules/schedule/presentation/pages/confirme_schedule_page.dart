@@ -48,7 +48,7 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
                 return const Text('data');
               }
               if(state is ScheduleErrorState){
-                return Center(child: Text("Error: ${state.error.message.toString()}"));
+                return Center(child: Text("Error: ${state.error.toString()}"));
               }
               if(state is ConfirmeSucessState){
                 return Padding(

@@ -14,3 +14,9 @@ class CreateScheduleEvent extends BlocEvent{
 }
 
 class ConfirmeScheduleEvent extends BlocEvent{}
+
+class HoursScheduleEvent extends BlocEvent{
+  final int day;
+
+  HoursScheduleEvent(this.day);
+}
