@@ -1,3 +1,4 @@
+import 'package:client_barber_shop/src/modules/schedule/presentation/bloc/hours/hours_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ void main() {
           BlocProvider<CreateCustomerBloc>(create: (context) => CreateCustomerBloc(Modular.get<AuthRepository>())),
           BlocProvider<UpdateCostumerBloc>(create: (context) => UpdateCostumerBloc(Modular.get<AuthRepository>())),
           BlocProvider<ScheduleBloc>(create: (context) => ScheduleBloc(Modular.get<ScheduleRepositoty>(), Modular.get<AuthRepository>())),
+          BlocProvider<HoursBloc>(create: (context) => HoursBloc(Modular.get<ScheduleRepositoty>())),
         ],
         child: ModularApp(
           module: AppModule(), 

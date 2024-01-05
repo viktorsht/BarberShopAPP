@@ -1,5 +1,4 @@
 import 'package:client_barber_shop/src/modules/auth/domain/entities/customer_entity.dart';
-import 'package:client_barber_shop/src/modules/schedule/domain/entities/hours_active_entity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +21,6 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
 
   ScheduleBloc(this.scheduleRepositoty, this.authRepository) : super(ScheduleInitial()){
     on<ScheduleEvent> (_get);
-    on<HoursScheduleEvent> (_getHoursActive);
     on<ConfirmeScheduleEvent> (_getSchedule);
     on<CreateScheduleEvent> (_post);
   }
@@ -32,22 +30,10 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
     try {
       List<BarberEntity> barber = await scheduleRepositoty.fetchBarbers(); 
       List<ServicesEntity> services = await scheduleRepositoty.fetchServices();
-      //List<HoursActiveEntity> hours = await scheduleRepositoty.fetchHoursActive();
       emit(ScheduleSucessState( barber: barber, services: services));
     } 
     on Exception catch (e) {
       emit(ScheduleErrorState(error: e.toString()));
-    }
-  }
-
-  void _getHoursActive(HoursScheduleEvent event, Emitter<BlocState> emit) async {
-    emit(HoursLoadingState());
-    try {
-      List<HoursActiveEntity> hours = await scheduleRepositoty.fetchHoursActiveByDay(event.day);
-      emit(HoursSucessStatee(hours: hours));
-    }
-    on Exception catch (e) {
-      emit(HoursErrorState(error: e.toString()));
     }
   }
 

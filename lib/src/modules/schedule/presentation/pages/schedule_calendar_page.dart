@@ -10,11 +10,11 @@ import '../../../../constants/constants.dart';
 import '../../../../routes/app_routes.dart';
 import '../../../../utils/scheduled_time.dart';
 import '../../domain/entities/hours_active_entity.dart';
-import '../bloc/schedule_bloc.dart';
+import '../bloc/hours/hours_bloc.dart';
 
 class ScheduleCalendarPage extends StatefulWidget {
-  final ScheduleBloc controller;
-  const ScheduleCalendarPage({super.key, required this.controller});
+  final HoursBloc hoursBloc;
+  const ScheduleCalendarPage({super.key, required this.hoursBloc});
 
   @override
   State<ScheduleCalendarPage> createState() => _ScheduleCalendarPageState();
@@ -28,7 +28,7 @@ class _ScheduleCalendarPageState extends State<ScheduleCalendarPage> {
   @override
   void initState() {
     super.initState();
-    widget.controller.add(HoursScheduleEvent(selectDate.weekday));
+    widget.hoursBloc.add(HoursScheduleEvent(selectDate.weekday));
   }
 
   @override
@@ -51,7 +51,7 @@ class _ScheduleCalendarPageState extends State<ScheduleCalendarPage> {
                 if(selectedDate.weekday != 7){ // lógica de negócio que deveria estar em outro lugar
                   setState(() {
                     selectDate = selectedDate;
-                    widget.controller.add(HoursScheduleEvent(selectDate.weekday));
+                    widget.hoursBloc.add(HoursScheduleEvent(selectDate.weekday));
                   });
                 }
               },
@@ -61,8 +61,8 @@ class _ScheduleCalendarPageState extends State<ScheduleCalendarPage> {
               lastDate: Constants.lastDay,
             ),
             const SizedBox(height: 16,),
-            BlocBuilder<ScheduleBloc, BlocState>(
-              bloc: widget.controller,
+            BlocBuilder<HoursBloc, HoursBlocState>(
+              bloc: widget.hoursBloc,
               builder: (context, state) {
                 if(state is HoursSucessStatee){
                   final itemsHours = state.hours;

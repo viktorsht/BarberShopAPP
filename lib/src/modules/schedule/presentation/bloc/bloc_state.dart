@@ -48,19 +48,3 @@ class CreateScheduleErrorState extends BlocState {
   CreateScheduleErrorState({required this.error});
 }
 
-//hours
-
-class HoursSucessStatee extends BlocState{
-  final List<HoursActiveEntity> hours;
-
-  HoursSucessStatee({required this.hours});
-}
-
-class HoursErrorState extends BlocState {
-  final String error;
-
-  HoursErrorState({required this.error});
-}
-
-final class HoursLoadingState extends BlocState {}
-
