@@ -29,25 +29,33 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  bool loading = false;
+
   @override
   void initState() {
     super.initState();
     widget.controller.add(ConfirmeScheduleEvent());
+    setState(() {
+      loading = false;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: const AppBarWidget(title: 'Finalizando agendamento'),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           BlocBuilder(
             bloc: widget.controller,
             builder: (context, state) {
-              if(state is ConfirmeScheduleLoadingState){
-                return const Text('data');
+              if(state is ConfirmeLoadingState){
+                print('object');
+                return Center(child: CircularProgressIndicator(color: AppColors.secundaryColor,));
               }
-              if(state is ScheduleErrorState){
+              if(state is ConfirmeErrorState){
                 return Center(child: Text("Error: ${state.error.toString()}"));
               }
               if(state is ConfirmeSucessState){
@@ -101,16 +109,31 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
                   ),
                 );
               }
-              return Center(child: CircularProgressIndicator(color: AppColors.secundaryColor,));
+              //return Center(child: CircularProgressIndicator(color: AppColors.secundaryColor,));
+              return Container();
             },
           ),
+          /*BlocBuilder(
+            bloc: widget.controller,
+            builder: (context, state){
+              if(state is CreateScheduleLoadingState){
+                return Center(child: CircularProgressIndicator(color: AppColors.secundaryColor,),);
+              }
+              return Container();
+            }
+          ),*/
           BlocListener(
             bloc: widget.controller,
             listener: (context, state){
+                print('object');
+
               if(state is CreateScheduleErrorState){
                 showSnackBar('Não foi possivel agendar', Colors.red);
               }
               if(state is CreateScheduleLoadingState){
+                setState(() {
+                  loading = true;
+                });
                 showSnackBar('Agendamento enviado, aguarde', Colors.green);
               }
               if(state is CreateScheduleState){
@@ -125,7 +148,7 @@ class _ConfirmeScheduleState extends State<ConfirmeSchedule> {
                 });
               }
             },
-            child: Container(),
+            child: loading == true ? Center(child: CircularProgressIndicator(color: AppColors.secundaryColor,),) : Container(),
           ),
         ],
       )

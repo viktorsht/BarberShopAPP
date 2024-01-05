@@ -38,7 +38,7 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
   }
 
   void _getSchedule(ConfirmeScheduleEvent event, Emitter<BlocState> emit) async {
-    emit(ConfirmeScheduleLoadingState());
+    emit(ConfirmeLoadingState());
     try {
       ScheduleEntity entity = await scheduleRepositoty.fetchPrefesSchedule();
       CustomerEntity customerEntity = await scheduleRepositoty.fetchPrefesCustomer();
@@ -50,10 +50,11 @@ class ScheduleBloc extends Bloc<BlocEvent, BlocState>{
             barber: entity.barber, 
             client: customer.id
           )
-        ));
+        )
+      );
     } 
     on ResponsePresentation catch (e) {
-      emit(ConfirmeScheduleErrorState(error: e));
+      emit(ConfirmeErrorState(error: e));
     }
   }
 

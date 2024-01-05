@@ -62,8 +62,8 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => Modular.to.pushNamed("${AppRoutes.scheduleModule}${AppRoutes.root}"),
                   ),
                   MenuItemWidget(message: 'Minha Agenda', onPressed: () {}),
-                  MenuItemWidget(message: 'Meu Perfil', onPressed: () {}),
-                  MenuItemWidget(message: 'Sobre Nós', onPressed: () {}),
+                  //MenuItemWidget(message: 'Meu Perfil', onPressed: () {}),
+                  //MenuItemWidget(message: 'Sobre Nós', onPressed: () {}),
                 ],
               )
             )

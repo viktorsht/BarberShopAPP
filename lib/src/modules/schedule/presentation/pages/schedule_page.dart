@@ -201,7 +201,7 @@ class _SchedulePageState extends State<SchedulePage> {
                   buttonColor: AppColors.buttonColor, 
                   messageColor: AppColors.primaryColorText,
                   onPressed: () async {
-                    if(selectedServicesId == 0 || selectedBarberId == 0){
+                    if(selectedServicesId == 0 || selectedBarberId == 0 || selectedHour == null){
                       showSnackBar('Selecione todos os campos', Colors.red);
                     }
                     else{
@@ -217,7 +217,6 @@ class _SchedulePageState extends State<SchedulePage> {
                         Modular.to.pushNamed("${AppRoutes.authModule}${AppRoutes.createUser}",);
                       }
                     }
-                    //print("${AppRoutes.authModule}${AppRoutes.createUser}");
                   },
                 ),
               ],

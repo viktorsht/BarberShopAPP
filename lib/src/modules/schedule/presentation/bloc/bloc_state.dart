@@ -29,12 +29,12 @@ class ConfirmeSucessState extends BlocState{
   ConfirmeSucessState({required this.entity});
 }
 
-final class ConfirmeScheduleLoadingState extends BlocState {}
+final class ConfirmeLoadingState extends BlocState {}
 
-class ConfirmeScheduleErrorState extends BlocState {
+class ConfirmeErrorState extends BlocState {
   final ResponsePresentation error;
 
-  ConfirmeScheduleErrorState({required this.error});
+  ConfirmeErrorState({required this.error});
 }
 
 // create
